@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY package.json ./
 RUN npm install -g nodemon
+RUN npm install express modbus-serial cors
+
 
 COPY . .
 
