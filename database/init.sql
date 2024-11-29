@@ -1,0 +1,27 @@
+CREATE DATABASE IF NOT EXISTS hackathon;
+
+USE hackathon;
+
+CREATE TABLE PLC_Data (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(255) NOT NULL,
+    IP VARCHAR(45) NOT NULL UNIQUE
+);
+
+CREATE TABLE variable (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    local_name VARCHAR(255) NOT NULL,
+    PLC_name VARCHAR(255) NOT NULL,
+    PLC_id INT NOT NULL,
+    tx_rafraichissement INT NOT NULL,
+    unit_txt VARCHAR(50) NOT NULL,
+    FOREIGN KEY (PLC_id) REFERENCES PLC_Data(id)
+);
+
+CREATE TABLE result (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    variable_id INT NOT NULL,
+    value DECIMAL(10, 2) NOT NULL,
+    timestamp DATETIME NOT NULL,
+    FOREIGN KEY (variable_id) REFERENCES variable(id)
+);

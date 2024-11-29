@@ -20,6 +20,8 @@ services:
       - ./backend:/app  # Le code source du backend est partagé entre la machine hôte et le conteneur
     networks:
       - hackathon_network
+    cap_add:
+      - NET_ADMIN  # Autoriser l'administration du réseau pour accéder aux équipements du réseau
 
   db:
     image: mariadb:latest
