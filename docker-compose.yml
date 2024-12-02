@@ -4,34 +4,33 @@ services:
   frontend:
     image: nginx:latest
     ports:
-      - "8080:80"  # Le port 8080 du conteneur est exposé sur la machine hôte
+      - "8080:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html  # Le code source du frontend est partagé entre la machine hôte et le conteneur
+      - ./frontend:/usr/share/nginx/html
     networks:
       - hackathon_network
 
   backend:
     build: ./backend
     ports:
-      - "5001:5001"  # Le port 5001 du conteneur est exposé sur la machine hôte
+      - "5001:5001"
     depends_on:
-      - db  # Ce service attend que le service db démarre avant de se lancer
+      - db
     volumes:
-      - ./backend:/app  # Le code source du backend est partagé entre la machine hôte et le conteneur
-    networks:
-      - hackathon_network
-    cap_add:
-      - NET_ADMIN  # Autoriser l'administration du réseau pour accéder aux équipements du réseau
+      - ./backend:/app
+    network_mode: "host"  # Passer le backend en mode host
+    environment:
+      - NODE_ENV=production
 
   db:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Définit le mot de passe pour l'utilisateur root
-      MYSQL_DATABASE: hackathon  # La base de données hackathon est créée au démarrage
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hackathon
     ports:
-      - "3306:3306"  # Le port 3306 (par défaut pour MariaDB) est exposé sur la machine hôte
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql  # Les données de la base sont persistantes
+      - db_data:/var/lib/mysql
     networks:
       - hackathon_network
 
