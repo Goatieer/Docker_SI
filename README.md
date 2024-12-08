@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# Déploiement d'un Système de Supervision pour Automates Industriels
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Présentation
 
-## Available Scripts
+Ce projet propose une solution pour centraliser la gestion des automates industriels et des variables associées. Il permet de :
+- Superviser des données en temps réel.
+- Gérer dynamiquement des automates et des variables.
+- Visualiser les évolutions des données sous forme de graphiques interactifs.
 
-In the project directory, you can run:
+Grâce à son approche modulable, cette solution s'adapte facilement à toutes les configurations industrielles et peut être intégrée dans n'importe quelle usine.
+## Fonctionnalités
 
-### `npm start`
+- **Gestion des automates :** ajout, modification et suppression.
+- **Gestion des variables :** ajout, modification et suppression.
+- **Visualisation des variables :** affichage graphique sur des plages temporelles définies.
+- **Export des historiques :** possibilité de générer un fichier CSV des données collectées.
+- **Interface utilisateur :** intuitive et responsive, développée avec **Bootstrap** et **Chart.js**.
+- **API REST backend :** utilisée pour interagir avec les données des automates et des variables.
+## Prérequis
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Docker Desktop** (dernière version recommandée).
+- **Node.js** (version 16 ou supérieure).
+- **Docker Compose** (version 2.29 ou supérieure).
+## Guide d'installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Étape 1 : Cloner le projet
+```bash
+git clone https://github.com/username/Docker_SI.git
+cd Docker_SI
+docker-compose up --build
+```
+---
 
-### `npm test`
+### Guide d'utilisation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Gérer les Automates
+- Accéder à la section "Gérer les Automates".
+- Ajouter un automate en spécifiant son nom et son adresse IP.
+- Modifier un automate existant ou le supprimer si nécessaire.
 
-### `npm run build`
+### Gérer les Variables
+- Accéder à la section "Gérer les Variables".
+- Ajouter une nouvelle variable en renseignant :
+  - Son nom.
+  - Son unité (°C, kPa, etc.).
+  - Son adresse.
+  - L'automate auquel elle est associée.
+- Modifier une variable existante ou la supprimer.
+- Visualiser l'historique d'une variable sous forme de tableau exportable en CSV.
+- Visualiser l'évolution d'une variable sous forme de graphique interactif.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Visualisation
+- Utilisez les outils intégrés pour visualiser les données en temps réel ou sur des plages temporelles définies.
+## Roadmap
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Voici les évolutions prévues pour le projet :
+- **Ajout de notifications :** envoi d'alertes en cas de dépassement de seuil pour certaines variables.
+- **Support multi-utilisateur :** intégration d'un système de connexion avec des droits personnalisés.
+- **Compatibilité mobile :** amélioration de l'expérience utilisateur sur smartphones et tablettes.
+## Structure du Projet
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```plaintext
+projet/
+├── frontend/         # Interface utilisateur (HTML, CSS, JavaScript)
+│   ├── index.html    # Page principale
+│   ├── script.js     # Scripts de gestion des fonctionnalités
+│   ├── Dockerfile    # Configuration Docker pour le frontend
+├── backend/          # API REST
+│   ├── index.js      # Serveur Express.js
+│   ├── routes/       # Routes de l'API
+│   ├── Dockerfile    # Configuration Docker pour le backend
+├── database/         # Fichiers liés à la base de données
+├── docker-compose.yml # Orchestration Docker
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### API Backend
+```markdown
+## API Backend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Méthode | Endpoint         | Description                          |
+|---------|------------------|--------------------------------------|
+| GET     | `/variables`     | Récupérer toutes les variables.      |
+| POST    | `/variables`     | Ajouter une nouvelle variable.       |
+| DELETE  | `/variables/:id` | Supprimer une variable.              |
+| GET     | `/history`       | Récupérer l'historique des variables.|
+## Schéma de la Base de Données
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Table : `plc_data`
+| Champ           | Type         | Description                        |
+|------------------|--------------|------------------------------------|
+| `id`            | INT          | Identifiant unique.                |
+| `variable_name` | VARCHAR(50)  | Nom de la variable.                |
+| `value`         | FLOAT        | Valeur mesurée.                    |
+| `timestamp`     | DATETIME     | Date et heure de la mesure.        |
+## Contributeurs
+```
+- **Gautier Poitel**  
+  Email : gautier.poitel@etu.unilasalle.fr  
+- **Batiste Guignant**  
+  Email : batiste.guignant@etu.unilasalle.fr  
